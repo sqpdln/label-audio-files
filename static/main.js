@@ -1,8 +1,8 @@
 /* eslint-env browser, jquery */
 
 (($) => {
-  let current = -1;
   let data = $('#info');
+  let current = data.data('current');
   let filenames = data.data('filenames');
   let labels = data.data('labels');
   const buttons = $('#buttons');
@@ -18,20 +18,20 @@
   buttons.click((e) => {
     const l = $(e.target).data('label');
     logButtonClick(l, filenames[current]);
-    setNextAudioSrc();
   });
 
   setNextAudioSrc();
 
   function setNextAudioSrc() {
-    current++;
     $('#logger').html(
       `File <strong>#${current + 1} of ${filenames.length}</strong> \
        (${filenames[current]})`);
     const audio = document.getElementById('audioEl');
     const source = document.getElementById('audioSource');
     source.src = `/static/data/${filenames[current]}`;
-    audio.load();
+    setTimeout(() => {
+      audio.load();
+    }, 0);
   }
 
   function logButtonClick(label, filename) {
@@ -41,7 +41,9 @@
       contentType: 'application/json',
       data: JSON.stringify({label, filename}),
       dataType: 'json',
-      success: () => {
+      success: (r) => {
+        current = r.current;
+        setNextAudioSrc();
         $('#list').append(`<li>${filename}, ${label}</li>`);
       },
     });
