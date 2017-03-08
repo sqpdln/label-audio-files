@@ -1,0 +1,21 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Watch your ears!</title>
+  <link rel="stylesheet" href="/static/main.css">
+</head>
+<body>
+  <section id="logger"></section>
+  <audio id="audioEl" controls="controls" autoplay>
+    <source id="audioSource" src="" type="audio/ogg">
+  </audio>
+  <section id="buttons"></section>
+  <ul id="list"></ul>
+  <div id="info" data-filenames="{{files}}" data-labels="{{labels}}"></div>
+  <script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+  <script src="static/main.js"></script>
+</body>
+</html>
