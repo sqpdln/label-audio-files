@@ -10,12 +10,12 @@ make
 Run:
 
 ```
-python server.py
+python server.py <path/to/audiofiles>
 ```
 
 Optionally start at index i:
 ```
-python server.py <i>
+python server.py <path/to/audiofiles> <i>
 ```
 
 Go to localhost:5000

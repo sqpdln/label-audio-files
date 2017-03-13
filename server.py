@@ -8,12 +8,12 @@ from flask import request
 
 app = flask.Flask(__name__)
 
-files = lr.util.find_files('./static/data')
+files = lr.util.find_files(sys.argv[1])
 for i, file in enumerate(files):
     files[i] = os.path.basename(file)
 
-if len(sys.argv) > 1:
-    current = int(sys.argv[1])
+if len(sys.argv) > 2:
+    current = int(sys.argv[2])
 else:
     current = 0
 
