@@ -8,6 +8,7 @@
     'guitar',
     'perc',
     'piano',
+    'recorder',
     'saxophone',
     'unknown instrument',
     'violin',
