@@ -9,11 +9,13 @@
     'perc',
     'piano',
     'saxophone',
+    'unknown instrument',
     'violin',
     'vocals',
     'whistle',
     'click track',
     'multiple sources',
+    'noisy',
     'inaudible',
     'broken',
   ];
