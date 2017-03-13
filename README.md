@@ -1,4 +1,4 @@
-# Micro gui for labelling audio data.
+### Micro gui for labelling audio data.
 
 Build:
 
