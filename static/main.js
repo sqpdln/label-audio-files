@@ -1,26 +1,53 @@
 /* eslint-env browser, jquery */
 
 (($) => {
-  let data = $('#info');
+  const labels = [
+    'accordion',
+    'bassoon',
+    'clarinet',
+    'guitar',
+    'perc',
+    'piano',
+    'saxophone',
+    'violin',
+    'vocals',
+    'whistle',
+    'click track',
+    'multiple sources',
+    'inaudible',
+    'broken',
+  ];
+
+  const data = $('#info');
+  const filenames = data.data('filenames');
   let current = data.data('current');
-  let filenames = data.data('filenames');
-  let labels = data.data('labels');
+
   const buttons = $('#buttons');
+  const sendAndGetNext = $('#sendAndGetNext');
 
   let html = '';
   for (let i = 0; i < labels.length; i++) {
     const l = labels[i];
-    html += `<button id="button-${l}" data-label="${l}">${l}</button>`;
+    html += `
+      <input type="checkbox" id="button-${l}" data-label="${l}" class="feature">
+        <label for="button-${l}">${l}</label>
+      </input><br/>`;
   }
 
   buttons.html(html);
+  const features = $('.feature');
 
-  buttons.click((e) => {
-    const l = $(e.target).data('label');
-    logButtonClick(l, filenames[current]);
-  });
+  function getCheckedFeatures() {
+    const l = [];
+    features.filter(':checked').each((i, el) => {
+      l.push($(el).data('label'));
+    });
+    return l.toString();
+  }
 
-  setNextAudioSrc();
+  function clearCheckboxes() {
+    return features.prop('checked', false);
+  }
 
   function setNextAudioSrc() {
     $('#logger').html(
@@ -34,7 +61,9 @@
     }, 0);
   }
 
-  function logButtonClick(label, filename) {
+  function logCurrentClip() {
+    const label = getCheckedFeatures();
+    const filename = filenames[current];
     $.ajax({
       url: '/newlabel',
       type: 'POST',
@@ -44,8 +73,19 @@
       success: (r) => {
         current = r.current;
         setNextAudioSrc();
-        $('#list').append(`<li>${filename}, ${label}</li>`);
+        $('#list').append(`<li>${filename},${label}</li>`);
       },
     });
+    return clearCheckboxes();
   }
+
+  $(window).on('keydown', (e) => {
+    e.originalEvent.key === 'Enter' && logCurrentClip();
+  });
+
+  sendAndGetNext.click(() => {
+    logCurrentClip();
+  });
+
+  setNextAudioSrc();
 })($);

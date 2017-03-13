@@ -1,6 +1,8 @@
 micro gui for labelling audio data.
 
 '''
+make
+. ./env/bin/activate
 python server.py
 '''
 
