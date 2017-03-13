@@ -1,20 +1,20 @@
 Micro gui for labelling audio data.
 
 Build:
-'''
+``
 make
 . ./env/bin/activate
-'''
+``
 
 Run:
-'''
+``
 python server.py
-'''
+``
 
 Optionally start at index i:
-'''
+``
 python server.py <i>
-'''
+``
 
 Go to localhost:5000
 
